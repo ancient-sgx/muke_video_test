@@ -44,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -126,3 +126,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=(os.path.join(BASE_DIR,'STATIC'),)
+
+#qiniu
+QINIU_AK='hk5YRSs9Bz1eoBHHi-93sBhJ1WLZaxllqa_M4EPl'
+QINIU_SK='K_nB9p-seh_ZMfJk6130PvdfYEoei97-gURilqIT'
+QINIU_VIDEO='ancient'
+QINIU_VIDEO_URL='qld7mpbn4.hn-bkt.clouddn.com'
