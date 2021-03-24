@@ -1,5 +1,6 @@
 #coding:utf-8
 from qiniu import Auth,put_data,put_file
+# put_data上传的是二进制的文件，put_file上传的是本地的文件
 from django.conf import settings
 
 class Qiniu(object):
@@ -10,13 +11,13 @@ class Qiniu(object):
         self.q=Auth(settings.QINIU_AK,settings.QINIU_SK)
         self.base_url=base_url
 
-        def put(self,name,path):
-            token=self.q.upload_token(self.bucket_name,name)
-            ret,info = put_file(token,name,path)
-
-            if 'key' in ret:
-                remote_url =self.base_url + ret['key']
-                return remote_url
+    def put(self,name,path):
+        token=self.q.upload_token(self.bucket_name,name)
+        ret,info = put_file(token,name,path)
+        # print(ret,info)
+        if 'key' in ret:
+            remote_url ='/'.join([self.base_url , ret['key']])
+            return remote_url
 
 video_qiniu = Qiniu(
     bucket_name=settings.QINIU_VIDEO,

@@ -1,0 +1,19 @@
+.form{
+    width: 80%;/*øÌ∂»*/
+    margin: 20% auto;/*¿Î∂•∂À∂‡‘∂£¨æ”÷–*/
+    padding: 5%;/**/
+}
+
+.form input{
+    display: block;
+    width: 100%;
+}
+button{
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+.user-area{
+    width: 15%;
+    margin: 20% auto;
+    text-align: center;
+}

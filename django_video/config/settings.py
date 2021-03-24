@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import djcelery
+import django
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,14 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'djcelery'
 ]
+BROKER_URL='redis://localhost:6379/2'
+CELERY_RESULT_BACKEND='redis://localhost:6379/3'
+CELERY_IMPORTS=('app.tasks.task')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -86,6 +94,19 @@ DATABASES = {
 
     }
 }
+
+
+# CACHE={
+#     'default':{
+#         'BACKEND':'django_redis.cache.RedisCache',
+#         'LOCATION':'redis://127.0.0.1:6379',
+#         'OPTIONS':{
+#             'CLIENT_CLASS':'django_redis.client.DefaultClient',
+#             'CONNECTION_POOL_KWARGS':{'max_connections':200}
+#             #'PASSWORD':'XXX'
+#         }
+#     }
+# }
 
 
 # Password validation
@@ -130,5 +151,9 @@ STATICFILES_DIRS=(os.path.join(BASE_DIR,'STATIC'),)
 #qiniu
 QINIU_AK='hk5YRSs9Bz1eoBHHi-93sBhJ1WLZaxllqa_M4EPl'
 QINIU_SK='K_nB9p-seh_ZMfJk6130PvdfYEoei97-gURilqIT'
-QINIU_VIDEO='ancient'
-QINIU_VIDEO_URL='qld7mpbn4.hn-bkt.clouddn.com'
+QINIU_VIDEO='ancients'
+QINIU_VIDEO_URL='http://qp8dpxrbq.hb-bkt.clouddn.com'
+
+django.setup()
+djcelery.setup_loader()
+

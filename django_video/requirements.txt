@@ -1,3 +1,7 @@
 Django==3.1.3
 mako==1.0.7
 qiniu
+celery=4.2.0
+django-celery
+celery-with-redis
+redis==2.10.6
