@@ -51,9 +51,10 @@ class Video(models.Model):
     nationality=models.CharField(max_length=20,default=NationalityType.other.value)
     info=models.TextField()
     status=models.BooleanField(default=True,db_index=True)
-    create_time=models.DateTimeField(auto_now_add=True)
-    update_time=models.DateTimeField(auto_now=True)
+    create_time=models.DateTimeField(auto_now_add=True)#创建道德时候的时间
+    update_time=models.DateTimeField(auto_now=True)#更新时的时间
     #保证以下字段是唯一的
+    #联合 索引
     class Meta:
         unique_together=('name','video_type','from_to','nationality')
     def __str__(self):

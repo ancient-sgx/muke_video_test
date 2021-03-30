@@ -1,5 +1,5 @@
 .open-btn{
-    margin-left: 20px;
+    margin-left: 20px; /*距离左边*/
 
 }
 .video-select{
@@ -8,12 +8,12 @@
 }
 .add-video-area{
     width: 50%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    margin-top: 10px;
-    margin-left: 20px;
-    border-radius:8px;
-    display: none;
+    padding: 10px;/*表单内上下左右都有10px的距离*/
+    border: 1px solid #cccccc;/*添加边框宽度1px，实线，灰色*/
+    margin-top: 10px;/*整个表单顶部和另外一个物体的距离*/
+    margin-left: 20px;/*整个表单和左边的距离*/
+    border-radius:8px;/*边框变为圆角*/
+    display: none;/*不显示这个表单*/
 }
 .video-images{
     width: 50px;

@@ -11,7 +11,7 @@ def dashboard_auth(func):
     def wrapper(self,request,*args,**kwargs):
         user=request.user
         if not user.is_authenticated or not user.is_superuser:
-            return redirect('{}?to={}'.format(reverse('dashboard_login'),request.path))
+            return redirect('{}?to={}'.format(reverse('dashboard_login'),request.path))#在登录之后回到当初想尽的页面
         return func(self,request,*args,**kwargs)
     return wrapper
 

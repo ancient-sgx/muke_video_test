@@ -25,6 +25,10 @@ class User(View):
         if not user:
             error='用户名或者密码错误,未找到该用户'
             return JsonResponse({'code':-1,'msg':error})
+        print(list(ClientUser.objects.values('status')[0].values())[0])
+        if list(ClientUser.objects.values('status')[0].values())[0] == False:
+            error='账号被冻结，请联系管理员恢复使用'
+            return JsonResponse({'code':-1,'msg':error})
         response=render_to_response(request,self.TEMPLATE)
         response.set_cookie(COOKIE_NAME,str(user.id))
         return response

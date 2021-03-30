@@ -7,7 +7,8 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from app.untils.permission import dashboard_auth
-
+from app.model.auth import ClientUser
+import mysql.connector
 
 class Login(View):
     TEMPLATE= 'dashboard/auth/login.html'
@@ -57,7 +58,7 @@ class AdminManage(View):
     def get(self,request):
         users=User.objects.all()
         page = request.GET.get('page',1)
-        p=Paginator(users,2)
+        p=Paginator(users,2)#两个为一页
         total_page = p.num_pages
         if int(page)<=1:
             page=1
@@ -72,10 +73,32 @@ class AdminManage(View):
 class UpdateAdminStatus(View):
     def get(self,request):
         status=request.GET.get('status','on')
-
         _status=True if status == 'on' else False
         request.user.is_superuser=_status
         request.user.save()
-
         return redirect(reverse('admin_manger'))
 
+
+class DashboardUser(View):
+    TEMPLATE = 'dashboard/auth/user.html'
+    @dashboard_auth
+    def get(self,request):
+        d_users=ClientUser.objects.all()
+        data={'users':d_users}
+        return render_to_response(request,self.TEMPLATE,data=data)
+
+
+class Updateuserstatus(View):
+
+    def get(self,request):
+        status1 = request.GET.get('status', 'on')
+        _status = True if status1 == 'on' else False
+
+        conn = mysql.connector.connect(user='root', password='123456', database='muke_video')
+        # 获取游标
+        cursor = conn.cursor()
+        sql='update app_clientuser set status=%s' %_status
+        cursor.execute(sql)
+        conn.commit()
+        cursor.close()
+        return redirect(reverse('dashboard_user'))
